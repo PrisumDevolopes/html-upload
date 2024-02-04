@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML File Uploader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #555;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        #uploaded-files {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .file-link {
+            display: block;
+            margin-bottom: 5px;
+            color: #0366d6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .file-link:hover {
+            color: #1a4da2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HTML File Uploader</h1>
+        <div class="upload-area" id="upload-area">
+            <input type="file" id="file-input" accept=".html">
+            <label for="file-input">Drag and drop your file here or click to browse</label>
+        </div>
+        <div id="uploaded-files"></div>
+
+        <script>
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const uploadedFilesDiv = document.getElementById('uploaded-files');
+
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', () => {
+                const files = fileInput.files;
+                if (files.length > 0) {
+                    displayUploadedFiles(files);
+                }
+            });
+
+            function displayUploadedFiles(files) {
+                for (const file of files) {
+                    const fileLink = document.createElement('a');
+                    fileLink.classList.add('file-link');
+                    fileLink.href = URL.createObjectURL(file);
+                    fileLink.target = '_blank';
+                    fileLink.textContent = file.name;
+                    uploadedFilesDiv.appendChild(fileLink);
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
